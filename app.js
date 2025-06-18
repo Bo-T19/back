@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Import routes
+const projectsRouter = require('./routes/projectsRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -18,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
+
+app.use('/api/v1/proyectos', projectsRouter);
 
 // Main route
 app.get('/', (req, res) => {
