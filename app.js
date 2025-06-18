@@ -5,7 +5,9 @@ const path = require('path');
 const fs = require('fs');
 
 // Import routes
+const AppError = require('./utils/appError');
 const projectsRouter = require('./routes/projectsRoutes');
+const globalErrorHandler = require('./controllers/errorControllers');
 
 // Load environment variables
 dotenv.config();
@@ -33,6 +35,8 @@ app.get('/', (req, res) => {
     </ul>
   `);
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app
 

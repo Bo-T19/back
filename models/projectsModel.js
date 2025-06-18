@@ -23,18 +23,18 @@ const costosProyectadosEsquema = new mongoose.Schema({
 
 
 const ordenCambioSchema = new mongoose.Schema({
-  fecha: Date,
-  aprobada: Boolean,
-  costos: {type: costosProyectadosEsquema, required: true}
+    fecha: Date,
+    aprobada: Boolean,
+    costos: { type: costosProyectadosEsquema, required: true }
 });
 
 const cobroSchema = new mongoose.Schema({
-  mes: {type: Date, required: true},
-  monto: {type: Number, required: true},
+    mes: { type: Date, required: true },
+    monto: { type: Number, required: true },
 });
 
 const gastoMensualEsquema = new mongoose.Schema({
-    mes: {type: Date, required: true},
+    mes: { type: Date, required: true },
     arquitectura: Number,
     estructuras: Number,
     redes: Number,
@@ -45,26 +45,26 @@ const gastoMensualEsquema = new mongoose.Schema({
 })
 
 const proyectoSchema = new mongoose.Schema({
-  _id: String,
-  tipo: {type: String, required: true},
-  fecha_inicio: {type: Date, required: true},
-  fecha_fin: {type: Date, required: true},
-  volumen_total: {type: Number, required: true},
-  centro_costos: {type: String, required: true},
-  costos_contractuales: costosProyectadosEsquema,
-  dinero_facturado: Number,
-  gasto_real: {
-    arquitectura: Number,
-    estructuras: Number,
-    redes: Number,
-    bim: Number,
-    geotecnia: Number,
-    integracion: Number,
-    confort: Number
-  },
-  ordenes_cambio: [ordenCambioSchema],
-  cobros: [cobroSchema],
-  gastos: [gastoMensualEsquema]
+    nombre: { type: String, required: true, unique: true},
+    tipo: { type: String, required: true },
+    fecha_inicio: { type: Date, required: true },
+    fecha_fin: { type: Date, required: true },
+    volumen_total: { type: Number, required: true },
+    centro_costos: { type: String, required: true },
+    costos_contractuales: costosProyectadosEsquema,
+    dinero_facturado: Number,
+    gasto_real: {
+        arquitectura: Number,
+        estructuras: Number,
+        redes: Number,
+        bim: Number,
+        geotecnia: Number,
+        integracion: Number,
+        confort: Number
+    },
+    ordenes_cambio: [ordenCambioSchema],
+    cobros: [cobroSchema],
+    gastos: [gastoMensualEsquema]
 });
 
 // Modelo
