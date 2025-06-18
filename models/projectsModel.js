@@ -23,18 +23,20 @@ const costosProyectadosEsquema = new mongoose.Schema({
 
 
 const ordenCambioSchema = new mongoose.Schema({
+    numero: {type: Number, required: true},
     fecha: Date,
     aprobada: Boolean,
     costos: { type: costosProyectadosEsquema, required: true }
 });
 
 const facturaSchema = new mongoose.Schema({
+    numero: {type: Number, required: true},
     mes: { type: Date, required: true },
     monto: { type: Number, required: true },
 });
 
 const gastoMensualEsquema = new mongoose.Schema({
-    mes: { type: Date, required: true },
+    mes: { type: Date, required: true, unique: true},
     arquitectura: Number,
     estructuras: Number,
     redes: Number,
