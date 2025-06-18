@@ -28,7 +28,7 @@ const ordenCambioSchema = new mongoose.Schema({
     costos: { type: costosProyectadosEsquema, required: true }
 });
 
-const cobroSchema = new mongoose.Schema({
+const facturaSchema = new mongoose.Schema({
     mes: { type: Date, required: true },
     monto: { type: Number, required: true },
 });
@@ -63,7 +63,7 @@ const proyectoSchema = new mongoose.Schema({
         confort: Number
     },
     ordenes_cambio: [ordenCambioSchema],
-    cobros: [cobroSchema],
+    facturas: [facturaSchema],
     gastos: [gastoMensualEsquema]
 });
 
