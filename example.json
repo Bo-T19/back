@@ -1,0 +1,81 @@
+{
+  "_id": "codigo_proyecto_001",
+  "tipo": "Vivienda",
+  "fecha_inicio": "2025-01-01",
+  "fecha_fin": "2025-12-31",
+  "volumen_total": 1000000,
+  "centro_costos": "CC001",
+  "costos_contractuales": {
+    "arquitectura": {
+      "costos_horas_hombre": 10000,
+      "costos_oficina_central": 2000,
+      "subcontratos": 15000,
+      "indirectos": 1200,
+      "contingencia": 800,
+      "utilidad": 500
+    },
+    "estructura": {
+      "costos_horas_hombre": 8000,
+      "costos_oficina_central": 1000,
+      "subcontratos": 10000,
+      "indirectos": 1000,
+      "contingencia": 600,
+      "utilidad": 400
+    },    "redes": {
+      "costos_horas_hombre": 8000,
+      "costos_oficina_central": 1000,
+      "subcontratos": 10000,
+      "indirectos": 1000,
+      "contingencia": 600,
+      "utilidad": 400
+    }
+    
+  },
+  "dinero_facturado": 500000,
+  "gasto_real": {
+    "arquitectura": 25000,
+    "estructura": 21000,
+    "redes":2500
+  },
+  "ordenes_cambio": [
+    {
+      "fecha": "2025-02-15",
+      "aprobada": true,
+      "costos": {
+        "arquitectura": {
+          "costos_horas_hombre": 1500
+        },
+        "estructura": {
+          "costos_horas_hombre": 1800
+        }
+      }
+    },
+    {
+      "fecha": "2025-04-01",
+      "aprobada": false,
+      "costos": {
+        "arquitectura": {
+          "costos_horas_hombre": 500
+        }
+      }
+    }
+  ],
+  "cobros": [
+    {
+      "mes": "2025-02",
+      "monto": 150000
+    },
+    {
+      "mes": "2025-03",
+      "monto": 100000
+    }
+  ],
+  "gastos":[
+    {
+      "mes": "2025-02",
+      "redes": 150000,
+      "estructura": 6000,
+      "arquitectura": 7888
+    }
+  ]
+}
