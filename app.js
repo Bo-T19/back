@@ -27,12 +27,8 @@ app.use('/api/v1/proyectos', projectsRouter);
 // Main route
 app.get('/', (req, res) => {
   res.send(`
-    <h1>Autodesk Platform Services Auth</h1>
-    <p>Bienvenido a la aplicación de autenticación</p>
-    <ul>
-      <li><a href="/auth">Iniciar autenticación con Autodesk (3-legged)</a></li>
-      <li><a href="/auth/2legged">Obtener token 2-legged</a></li>
-    </ul>
+    <h1>Hola, esto es DCD</h1>
+    <p>Bienvenido a la aplicación de nuestro taller</p>
   `);
 });
 

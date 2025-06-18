@@ -23,20 +23,20 @@ const costosProyectadosEsquema = new mongoose.Schema({
 
 
 const ordenCambioSchema = new mongoose.Schema({
-    numero: {type: Number, required: true},
+    numero: { type: Number, required: true },
     fecha: Date,
     aprobada: Boolean,
     costos: { type: costosProyectadosEsquema, required: true }
 });
 
 const facturaSchema = new mongoose.Schema({
-    numero: {type: Number, required: true},
+    numero: { type: Number, required: true },
     mes: { type: Date, required: true },
     monto: { type: Number, required: true },
 });
 
 const gastoMensualEsquema = new mongoose.Schema({
-    mes: { type: Date, required: true, unique: true},
+    mes: { type: Date, required: true, unique: true },
     arquitectura: Number,
     estructuras: Number,
     redes: Number,
@@ -47,11 +47,11 @@ const gastoMensualEsquema = new mongoose.Schema({
 })
 
 const proyectoSchema = new mongoose.Schema({
-    nombre: { type: String, required: true, unique: true},
+    nombre: { type: String, required: true, unique: true },
     tipo: { type: String, required: true },
     fecha_inicio: { type: Date, required: true },
     fecha_fin: { type: Date, required: true },
-    volumen_total: { type: Number, required: true },
+    volumen_total: Number,
     centro_costos: { type: String, required: true },
     costos_contractuales: costosProyectadosEsquema,
     dinero_facturado: Number,
@@ -68,6 +68,44 @@ const proyectoSchema = new mongoose.Schema({
     facturas: [facturaSchema],
     gastos: [gastoMensualEsquema]
 });
+
+//Pre save para calcular costos, facturas y volumen
+proyectoSchema.pre('save', function (next) {
+    // Dinero facturado
+    this.dinero_facturado = this.facturas.reduce((sum, f) => sum + f.monto, 0);
+
+    // Gasto real
+    const total = {
+        arquitectura: 0,
+        estructuras: 0,
+        redes: 0,
+        bim: 0,
+        geotecnia: 0,
+        integracion: 0,
+        confort: 0
+    };
+    this.gastos.forEach(gasto => {
+        for (const key in total) {
+            total[key] += gasto[key] || 0;
+        }
+    });
+    this.gasto_real = total;
+
+    // Volumen total
+    const sumarCostos = (c) => Object.values(c).reduce((sum, especialidad) => {
+        return sum + Object.values(especialidad || {}).reduce((a, b) => a + (b || 0), 0);
+    }, 0);
+
+    const costosContractuales = this.costos_contractuales ? sumarCostos(this.costos_contractuales) : 0;
+    const costosOrdenes = this.ordenes_cambio.reduce((sum, orden) => {
+        return sum + (orden.costos ? sumarCostos(orden.costos) : 0);
+    }, 0);
+
+    this.volumen_total = costosContractuales + costosOrdenes;
+
+    next();
+});
+
 
 // Modelo
 const Proyecto = mongoose.model('Proyecto', proyectoSchema);
