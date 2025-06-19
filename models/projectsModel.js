@@ -24,8 +24,9 @@ const costosProyectadosEsquema = new mongoose.Schema({
 
 const ordenCambioSchema = new mongoose.Schema({
     numero: { type: Number, required: true },
+    descripción: String, 
     fecha: Date,
-    aprobada: Boolean,
+    aprobada: {type: Boolean, required: true},
     costos: { type: costosProyectadosEsquema, required: true }
 });
 
@@ -48,11 +49,13 @@ const gastoMensualEsquema = new mongoose.Schema({
 
 const proyectoSchema = new mongoose.Schema({
     nombre: { type: String, required: true, unique: true },
+    cliente: { type: String, required: true, unique: true },
     tipo: { type: String, required: true },
     fecha_inicio: { type: Date, required: true },
     fecha_fin: { type: Date, required: true },
     volumen_total: Number,
-    centro_costos: { type: String, required: true },
+    pep_soc01: { type: String, required: true },
+    pep_soc77: { type: String, required: true },
     costos_contractuales: costosProyectadosEsquema,
     dinero_facturado: Number,
     gasto_real: {
