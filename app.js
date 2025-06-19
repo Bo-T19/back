@@ -8,6 +8,7 @@ const fs = require('fs');
 const AppError = require('./utils/appError');
 const projectsRouter = require('./routes/projectsRoutes');
 const globalErrorHandler = require('./controllers/errorControllers');
+const authController = require('./controllers/authController');
 
 // Load environment variables
 dotenv.config();
@@ -30,6 +31,15 @@ app.get('/', (req, res) => {
     <h1>Hola, esto es DCD</h1>
     <p>Bienvenido a la aplicación de nuestro taller</p>
   `);
+});
+
+// Ruta de prueba para verificar token
+app.get('/api/v1/test-auth', authController.verifyToken, (req, res) => {
+  res.json({
+    status: 'success',
+    message: '¡Token válido! Acceso autorizado.',
+    timestamp: new Date().toISOString()
+  });
 });
 
 app.use(globalErrorHandler);

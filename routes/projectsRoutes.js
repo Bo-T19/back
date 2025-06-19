@@ -1,7 +1,12 @@
+// routes/projectsRoutes.js
 const express = require('express');
 const projectsController = require('./../controllers/projectsControllers');
+const authController = require('./../controllers/authController');
 
 const router = express.Router();
+
+// Aplicar autenticación a todas las rutas de proyectos
+router.use(authController.verifyToken);
 
 // ===== RUTAS PRINCIPALES PARA PROYECTOS =====
 router.route('/')
