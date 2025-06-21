@@ -10,7 +10,7 @@ const costosPorEspecialidadSchema = new mongoose.Schema({
     utilidad: Number
 });
 
-const costosProyectadosEsquema = new mongoose.Schema({
+const costosTotalesSchema = new mongoose.Schema({
     inicio: costosPorEspecialidadSchema,
     arquitectura: costosPorEspecialidadSchema,
     estructuras: costosPorEspecialidadSchema,
@@ -21,13 +21,12 @@ const costosProyectadosEsquema = new mongoose.Schema({
     confort: costosPorEspecialidadSchema
 });
 
-
 const ordenCambioSchema = new mongoose.Schema({
     numero: { type: Number, required: true },
     descripción: String, 
     fecha: Date,
     aprobada: {type: Boolean, required: true},
-    costos: { type: costosProyectadosEsquema, required: true }
+    costos: { type: costosTotalesSchema, required: true }
 });
 
 const facturaSchema = new mongoose.Schema({
@@ -38,13 +37,7 @@ const facturaSchema = new mongoose.Schema({
 
 const gastoMensualEsquema = new mongoose.Schema({
     mes: { type: Date, required: true, unique: true },
-    arquitectura: Number,
-    estructuras: Number,
-    redes: Number,
-    bim: Number,
-    geotecnia: Number,
-    integracion: Number,
-    confort: Number
+    costos: {costosTotalesSchema}
 })
 
 const proyectoSchema = new mongoose.Schema({
